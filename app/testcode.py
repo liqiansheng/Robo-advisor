@@ -1,4 +1,6 @@
 user_stockpool = [] # to store stock inputs
+
+# Ask user which stock they are interested in
 while True:
     user_input = input("Please name a stock or cryptocurrency. If you want to skip, please enter Done.")
     numbers = sum(c.isdigit() for c in user_input)
@@ -11,3 +13,11 @@ while True:
 
 print(user_stockpool)
     
+# ask for their risk preference 
+while True:
+  user_input1 = input("Do you consider yourself risk-averse?(yes/no)")
+  if user_input1 != "yes" and user_input1 != "no":
+    print("Invalid input! Please choose either yes or no.")
+  else:
+    break
+print(user_input1)
