@@ -35,7 +35,7 @@ for stock in user_stockpool:
   response = requests.get(url)
   parsed_response = json.loads(response.text)
   print(type(parsed_response))
-  pprint(parsed_response)
+  
   if "Error Message" in parsed_response: #print error message if symbol is incorret
     print("Sorry, couldn't find any trading data for that symbol. please check your input and rerun the programy.\n\n\n")
   else:  
