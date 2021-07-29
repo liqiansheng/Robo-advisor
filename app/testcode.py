@@ -3,9 +3,11 @@ import json
 from pprint import pprint
 from getpass import getpass
 from pandas import DataFrame
+import datetime
 
 user_stockpool = [] # to store stock inputs
 api_key = input("Please input your API key:")
+time_now = datetime.datetime.now()
 
 # Ask user which stock they are interested in
 while True:
@@ -47,9 +49,10 @@ for stock in user_stockpool:
     stock_df_transpose['timestamp']= stock_df_transpose.index
     stock_df_transpose.index = range(len(stock_df_transpose))
     stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
-    print(stock_df_transpose)
+    stock_df_transpose.to_csv(f'data/{stock}_Price.csv',index=False)
 
-    stock_df_transpose.to_csv(f'data/{stock}.csv',index=False)
+    print("Stock:", parsed_response["Meta Data"]["2. Symbol"])
+    print("Run at:%s:%s:%s" % (time_now.hour, time_now.minute, time_now.second),"on %s/%s/%s" % (time_now.day, time_now.month, time_now.year))
 
 
   
