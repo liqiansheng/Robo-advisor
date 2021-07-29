@@ -48,6 +48,8 @@ stock_df_transpose['timestamp']= stock_df_transpose.index
 stock_df_transpose.index = range(len(stock_df_transpose))
 stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
 print(stock_df_transpose)
+
+stock_df_transpose.to_csv(r'C:\Users\lichenglintzq\Desktop\test.csv')
    
   
   
