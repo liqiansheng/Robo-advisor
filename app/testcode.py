@@ -26,7 +26,7 @@ while True:
     print("Invalid input! Please choose either yes or no.")
   else:
     break
-print(user_input1)
+
 
 # import data
 for stock in user_stockpool:
@@ -35,5 +35,11 @@ for stock in user_stockpool:
   parsed_response = json.loads(response.text)
   print(type(parsed_response))
   pprint(parsed_response)
+  if "Error Message" in parsed_response: #print error message if symbol is incorret
+    print("Sorry, couldn't find any trading data for that symbol. please check your input and rerun the programy.\n\n\n")
+   
+  
+  
+
   
   
