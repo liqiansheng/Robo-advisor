@@ -44,13 +44,14 @@ for stock in user_stockpool:
     stock_df_transpose.drop(columns=["5. adjusted close","7. dividend amount", "8. split coefficient"],inplace=True)
     stock_df_transpose.columns = ['open', 'high', 'low', 'close', 'volume']
 
-stock_df_transpose['timestamp']= stock_df_transpose.index
-stock_df_transpose.index = range(len(stock_df_transpose))
-stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
-print(stock_df_transpose)
+    stock_df_transpose['timestamp']= stock_df_transpose.index
+    stock_df_transpose.index = range(len(stock_df_transpose))
+    stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
+    print(stock_df_transpose)
 
-stock_df_transpose.to_csv(f'data/{stock}.csv',index=False)
-   
+    stock_df_transpose.to_csv(f'data/{stock}.csv',index=False)
+
+
   
   
 
