@@ -51,8 +51,31 @@ for stock in user_stockpool:
     stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
     stock_df_transpose.to_csv(f'data/{stock}_Price.csv',index=False)
 
+    # output
+    stock_date = list(parsed_response["Time Series (Daily)"])
+    stockclose_info = list(parsed_response["Time Series (Daily)"].items())
+    latest_closeprice = float(stockclose_info[0][1]["4. close"])
+    dollar_closeprice = '${:,.2f}'.format(latest_closeprice)
+    latest_highprice = float(stockclose_info[0][1]["2. high"])
+    dollar_highprice = '${:,.2f}'.format(latest_highprice)
+    latest_lowprice = float(stockclose_info[0][1]["3. low"])
+    dollar_lowprice = '${:,.2f}'.format(latest_lowprice)
+
+
+
+
+
+    print("-------------------------")
     print("Stock:", parsed_response["Meta Data"]["2. Symbol"])
-    print("Run at:%s:%s:%s" % (time_now.hour, time_now.minute, time_now.second),"on %s/%s/%s" % (time_now.day, time_now.month, time_now.year))
+    print("-------------------------")
+    print("REQUESTING STOCK MARKET DATA...")
+    print("REQUEST AT:%s:%s:%s" % (time_now.hour, time_now.minute, time_now.second),"ON %s/%s/%s" % (time_now.day, time_now.month, time_now.year))
+    print("-------------------------")
+    print("LATEST DAY:",stock_date[0])
+    print("LATEST CLOSE:", dollar_closeprice)
+    print("RECENT HIGH:",dollar_highprice)
+    print("RECENT LOW:",dollar_lowprice)
+    
 
 
   
