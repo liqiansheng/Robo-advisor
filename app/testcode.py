@@ -1,4 +1,10 @@
+import requests
+import json
+from pprint import pprint
+from getpass import getpass
+
 user_stockpool = [] # to store stock inputs
+api_key = input("Please input your API key:")
 
 # Ask user which stock they are interested in
 while True:
@@ -21,3 +27,13 @@ while True:
   else:
     break
 print(user_input1)
+
+# import data
+for stock in user_stockpool:
+  url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={stock}&apikey={api_key}"
+  response = requests.get(url)
+  parsed_response = json.loads(response.text)
+  print(type(parsed_response))
+  pprint(parsed_response)
+  
+  
