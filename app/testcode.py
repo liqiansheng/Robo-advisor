@@ -2,6 +2,7 @@ import requests
 import json
 from pprint import pprint
 from getpass import getpass
+from pandas import DataFrame
 
 user_stockpool = [] # to store stock inputs
 api_key = input("Please input your API key:")
@@ -37,6 +38,16 @@ for stock in user_stockpool:
   pprint(parsed_response)
   if "Error Message" in parsed_response: #print error message if symbol is incorret
     print("Sorry, couldn't find any trading data for that symbol. please check your input and rerun the programy.\n\n\n")
+  else:  
+    stock_df = DataFrame(parsed_response["Time Series (Daily)"])
+    stock_df_transpose = stock_df.transpose()
+    stock_df_transpose.drop(columns=["5. adjusted close","7. dividend amount", "8. split coefficient"],inplace=True)
+    stock_df_transpose.columns = ['open', 'high', 'low', 'close', 'volume']
+
+stock_df_transpose['timestamp']= stock_df_transpose.index
+stock_df_transpose.index = range(len(stock_df_transpose))
+stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
+print(stock_df_transpose)
    
   
   
