@@ -29,6 +29,7 @@ while True:
     print("Invalid input! Please choose either yes or no.")
   else:
     break
+print("You said:",user_input1.upper())
 
 
 # import data
@@ -60,8 +61,8 @@ for stock in user_stockpool:
     dollar_highprice = '${:,.2f}'.format(latest_highprice)
     latest_lowprice = float(stockclose_info[0][1]["3. low"])
     dollar_lowprice = '${:,.2f}'.format(latest_lowprice)
-    rencent_highprice = max([float(x) for x in stock_df_transpose["high"].tolist()])
-    dollar_recenthighprice = '${:,.2f}'.format(rencent_highprice)
+    recent_highprice = max([float(x) for x in stock_df_transpose["high"].tolist()])
+    dollar_recenthighprice = '${:,.2f}'.format(recent_highprice)
     recent_lowprice = min([float(x) for x in stock_df_transpose["low"].tolist()])
     dollar_recentlowprice = '${:,.2f}'.format(recent_lowprice)
 
@@ -78,6 +79,20 @@ for stock in user_stockpool:
     print("RECENT HIGH:",dollar_recenthighprice)
     print("RECENT LOW:",dollar_recentlowprice)
     print("-------------------------")
+
+    if latest_highprice == recent_highprice and user_input1.upper() == "NO":
+      print("RECOMMENDATION: BUY!")
+      print("RECOMMENDATION REASON: PRICE WILL KEEP CLIMBING")
+    
+    elif latest_closeprice >= 1.1 * recent_lowprice and user_input1.upper() == "YES":
+      print("RECOMMENDATION: BUY")
+      print("RECOMMENDATION REASON: PRICE WILL BOUNCE BACK!")
+    
+    else:
+      print("RECOMMENDATION: STAY CALM, NOT THE RIGHT TIMING")
+      print("RECOMMENDATION REASON: THE STOCK PRICE IS UNPREDITABLE")
+  
+    
     
     
 
