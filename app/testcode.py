@@ -19,8 +19,8 @@ while True:
         print("Oh, expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
     else:
         user_stockpool.append(user_input.upper())
-
-print(user_stockpool)
+for stock in user_stockpool:
+  print("You chose:", stock)
     
 # ask for their risk preference 
 while True:
@@ -45,13 +45,13 @@ for stock in user_stockpool:
     stock_df_transpose = stock_df.transpose()
     stock_df_transpose.drop(columns=["5. adjusted close","7. dividend amount", "8. split coefficient"],inplace=True)
     stock_df_transpose.columns = ['open', 'high', 'low', 'close', 'volume']
-
+    
     stock_df_transpose['timestamp']= stock_df_transpose.index
     stock_df_transpose.index = range(len(stock_df_transpose))
     stock_df_transpose = stock_df_transpose[['timestamp','open', 'high', 'low', 'close', 'volume']]
     stock_df_transpose.to_csv(f'data/{stock}_Price.csv',index=False)
 
-    # output
+    # Calculation
     stock_date = list(parsed_response["Time Series (Daily)"])
     stockclose_info = list(parsed_response["Time Series (Daily)"].items())
     latest_closeprice = float(stockclose_info[0][1]["4. close"])
@@ -60,11 +60,13 @@ for stock in user_stockpool:
     dollar_highprice = '${:,.2f}'.format(latest_highprice)
     latest_lowprice = float(stockclose_info[0][1]["3. low"])
     dollar_lowprice = '${:,.2f}'.format(latest_lowprice)
+    rencent_highprice = max([float(x) for x in stock_df_transpose["high"].tolist()])
+    dollar_recenthighprice = '${:,.2f}'.format(rencent_highprice)
+    recent_lowprice = min([float(x) for x in stock_df_transpose["low"].tolist()])
+    dollar_recentlowprice = '${:,.2f}'.format(recent_lowprice)
 
 
-
-
-
+    # Output
     print("-------------------------")
     print("Stock:", parsed_response["Meta Data"]["2. Symbol"])
     print("-------------------------")
@@ -73,8 +75,12 @@ for stock in user_stockpool:
     print("-------------------------")
     print("LATEST DAY:",stock_date[0])
     print("LATEST CLOSE:", dollar_closeprice)
-    print("RECENT HIGH:",dollar_highprice)
-    print("RECENT LOW:",dollar_lowprice)
+    print("RECENT HIGH:",dollar_recenthighprice)
+    print("RECENT LOW:",dollar_recentlowprice)
+    print("-------------------------")
+    
+    
+
     
 
 
