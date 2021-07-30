@@ -4,9 +4,13 @@ from pprint import pprint
 from getpass import getpass
 from pandas import DataFrame
 import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 user_stockpool = [] # to store stock inputs
-api_key = input("Please input your API key:")
+api_key = os.getenv("ALPHAVANTAGE_API_KEY")
 time_now = datetime.datetime.now()
 
 # Ask user which stock they are interested in
@@ -80,6 +84,7 @@ for stock in user_stockpool:
     print("RECENT LOW:",dollar_recentlowprice)
     print("-------------------------")
 
+    # RECOMMENDATION ALGORITHM
     if latest_highprice == recent_highprice and user_input1.upper() == "NO":
       print("RECOMMENDATION: BUY!")
       print("RECOMMENDATION REASON: PRICE WILL KEEP CLIMBING")
